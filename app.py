@@ -5,6 +5,7 @@ import cv2
 import numpy as np
 import requests
 import concurrent.futures
+from urllib.parse import quote
 from requests.auth import HTTPDigestAuth
 from flask import Flask, Response, render_template_string
 from dotenv import load_dotenv
@@ -64,7 +65,7 @@ thread = threading.Thread(target=update_loop, daemon=True)
 thread.start()
 
 def rtsp_generator(cam_id):
-    rtsp_url = f"rtsp://{USER}:{PASS}@{IP}:554/Streaming/Channels/{cam_id}0{STREAM}"
+    rtsp_url = f"rtsp://{quote(USER, safe='')}:{quote(PASS, safe='')}@{IP}:554/Streaming/Channels/{cam_id}0{STREAM}"
     cap = cv2.VideoCapture(rtsp_url, cv2.CAP_FFMPEG)
     cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
     
@@ -236,4 +237,4 @@ def rtsp_stream(cam_id):
     return Response(rtsp_generator(cam_id), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, threaded=True)
+    app.run(host='0.0.0.0', port=3000, threaded=True)
