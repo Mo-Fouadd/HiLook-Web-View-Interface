@@ -47,7 +47,7 @@ Start the Flask server:
 python app.py
 ```
 
-Access the interface at `http://<YOUR_IP>:5000`.
+Access the interface at `http://<YOUR_IP>:3000`.
 
 * **Grid View:** Displays snapshots polling at the interval defined in `.env`.
 * **Fullscreen:** Double-click any camera to initiate a live RTSP stream.
